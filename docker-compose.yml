@@ -15,9 +15,8 @@ services:
       - ERROR_LOG=-
       - REVERSE_PROXY=true
     volumes:
-      - .data/CTFd/logs:/var/log/CTFd
-      - .data/CTFd/uploads:/var/uploads
-      - .:/opt/CTFd:ro
+      - logs:/var/log/CTFd
+      - uploads:/var/uploads
     depends_on:
       - db
     networks:
@@ -28,7 +27,7 @@ services:
     image: nginx:stable
     restart: always
     volumes:
-      - ./conf/nginx/http.conf:/etc/nginx/nginx.conf
+      - ./conf/nginx/http.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 80:80
     depends_on:
@@ -44,7 +43,7 @@ services:
       - MARIADB_DATABASE=ctfd
       - MARIADB_AUTO_UPGRADE=1
     volumes:
-      - .data/mysql:/var/lib/mysql
+      - mysql:/var/lib/mysql
     networks:
         internal:
     # This command is required to set important mariadb defaults
@@ -54,7 +53,7 @@ services:
     image: redis:4
     restart: always
     volumes:
-    - .data/redis:/data
+    - redis:/data
     networks:
         internal:
 
@@ -62,3 +61,9 @@ networks:
     default:
     internal:
         internal: true
+
+volumes:
+  redis:
+  mysql:
+  logs:
+  uploads:

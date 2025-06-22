@@ -25,5 +25,5 @@ def listing():
     if is_admin() is True and scores_visible() is False:
         infos.append("Scores are not currently visible to users")
 
-    standings = get_standings()
+    standings = get_standings(count=10)
     return render_template("scoreboard.html", standings=standings, infos=infos)

@@ -62,11 +62,6 @@
 
       <div>
         <h2 class="text-center">
-          {% if account.place %}
-            {{ account.place }} <small>place</small>
-          {% endif %}
-        </h2>
-        <h2 class="text-center">
           {% if account %}
             {{ account.get_score(admin=True) }} <small>points</small>
           {% endif %}
